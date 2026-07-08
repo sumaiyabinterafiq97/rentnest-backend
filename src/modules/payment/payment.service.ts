@@ -1,8 +1,7 @@
-import { PrismaClient } from '@prisma/client';
 import Stripe from 'stripe';
 import config from '../../config';
 
-const prisma = new PrismaClient();
+import prisma from "../../shared/prisma";
 const stripe = new Stripe(config.stripe_secret_key as string, {
   apiVersion: '2026-06-24.dahlia',
 });

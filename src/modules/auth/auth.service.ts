@@ -1,10 +1,9 @@
-import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import config from '../../config';
 import { jwtHelpers } from '../../shared/jwtHelpers';
 import { Secret } from 'jsonwebtoken';
 
-const prisma = new PrismaClient();
+import prisma from "../../shared/prisma";
 
 const registerUser = async (payload: any) => {
   const { name, email, password, role } = payload;

@@ -1,6 +1,5 @@
-import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+import prisma from "../../shared/prisma";
 
 const createRentalRequest = async (tenantId: string, payload: { propertyId: string }) => {
   const property = await prisma.property.findUnique({ where: { id: payload.propertyId } });

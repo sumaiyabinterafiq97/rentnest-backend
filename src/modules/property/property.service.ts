@@ -1,6 +1,5 @@
-import { PrismaClient, Prisma } from '@prisma/client';
 
-const prisma = new PrismaClient();
+import prisma from "../../shared/prisma";
 
 const createProperty = async (landlordId: string, payload: any) => {
   return await prisma.property.create({
