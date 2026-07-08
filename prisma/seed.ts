@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import config from '../src/config';
 
-import prisma from "./src/shared/prisma";
+import prisma from '../src/shared/prisma';
 
 async function main() {
   const adminEmail = 'admin@rentnest.com';
