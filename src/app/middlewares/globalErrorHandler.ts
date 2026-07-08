@@ -22,6 +22,15 @@ const globalErrorHandler: ErrorRequestHandler = (
     message = error.message;
   }
 
+  // Handle Prisma errors
+  if (error.code === 'P2002') {
+    message = 'Duplicate field value entered';
+    errorDetails = error.meta;
+  } else if (error.code === 'P2025') {
+    message = 'Record not found';
+    errorDetails = error.meta;
+  }
+
   res.status(500).json({
     success: false,
     message,
