@@ -8,7 +8,7 @@ const router = express.Router();
 
 const updateStatusSchema = z.object({
   body: z.object({
-    status: z.enum(['ACTIVE', 'BANNED'], { required_error: 'Status is required' }),
+    status: z.enum(['ACTIVE', 'BANNED'], { message: 'Status is required' }),
   }),
 });
 

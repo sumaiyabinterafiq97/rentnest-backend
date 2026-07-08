@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { sendResponse } from '../../utils/sendResponse';
 
 const registerUser = async (req: Request, res: Response, next: any) => {
-  
+  try {
     const result = await AuthService.registerUser(req.body);
     sendResponse(res, {
       success: true,
@@ -16,7 +16,7 @@ const registerUser = async (req: Request, res: Response, next: any) => {
 };
 
 const loginUser = async (req: Request, res: Response, next: any) => {
-  
+  try {
     const result = await AuthService.loginUser(req.body);
     sendResponse(res, {
       success: true,
@@ -29,7 +29,7 @@ const loginUser = async (req: Request, res: Response, next: any) => {
 };
 
 const getMe = async (req: Request, res: Response, next: any) => {
-  
+  try {
     const userId = (req.user as any).id;
     const result = await AuthService.getMe(userId);
     sendResponse(res, {

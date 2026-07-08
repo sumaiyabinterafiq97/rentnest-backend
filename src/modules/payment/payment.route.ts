@@ -8,15 +8,15 @@ const router = express.Router();
 
 const createIntentSchema = z.object({
   body: z.object({
-    rentalRequestId: z.string({ required_error: 'Rental Request ID is required' }),
+    rentalRequestId: z.string({ message: 'Rental Request ID is required' }),
   }),
 });
 
 const confirmPaymentSchema = z.object({
   body: z.object({
-    transactionId: z.string({ required_error: 'Transaction ID is required' }),
-    rentalRequestId: z.string({ required_error: 'Rental Request ID is required' }),
-    method: z.string({ required_error: 'Payment method is required' }),
+    transactionId: z.string({ message: 'Transaction ID is required' }),
+    rentalRequestId: z.string({ message: 'Rental Request ID is required' }),
+    method: z.string({ message: 'Payment method is required' }),
   }),
 });
 

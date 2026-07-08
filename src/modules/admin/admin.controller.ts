@@ -17,7 +17,7 @@ const getAllUsers = async (req: Request, res: Response, next: any) => {
 
 const updateUserStatus = async (req: Request, res: Response, next: any) => {
   try {
-    const result = await AdminService.updateUserStatus(req.params.id, req.body.status);
+    const result = await AdminService.updateUserStatus(req.params.id as string, req.body.status);
     sendResponse(res, {
       success: true,
       message: 'User status updated successfully',

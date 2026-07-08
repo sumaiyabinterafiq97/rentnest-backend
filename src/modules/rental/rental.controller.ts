@@ -33,7 +33,7 @@ const getTenantRentals = async (req: Request, res: Response, next: any) => {
 const getRentalById = async (req: Request, res: Response, next: any) => {
   try {
     const user = req.user as any;
-    const result = await RentalService.getRentalById(req.params.id, user.id, user.role);
+    const result = await RentalService.getRentalById(req.params.id as string, user.id, user.role);
     sendResponse(res, {
       success: true,
       message: 'Rental request retrieved successfully',
@@ -61,7 +61,7 @@ const getLandlordRequests = async (req: Request, res: Response, next: any) => {
 const updateRentalStatus = async (req: Request, res: Response, next: any) => {
   try {
     const landlordId = (req.user as any).id;
-    const result = await RentalService.updateRentalStatus(req.params.id, landlordId, req.body.status);
+    const result = await RentalService.updateRentalStatus(req.params.id as string, landlordId, req.body.status);
     sendResponse(res, {
       success: true,
       message: 'Rental request status updated successfully',

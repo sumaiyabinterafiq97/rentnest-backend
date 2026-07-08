@@ -46,7 +46,7 @@ const getPaymentHistory = async (req: Request, res: Response, next: any) => {
 const getPaymentDetails = async (req: Request, res: Response, next: any) => {
   try {
     const user = req.user as any;
-    const result = await PaymentService.getPaymentDetails(req.params.id, user.id, user.role);
+    const result = await PaymentService.getPaymentDetails(req.params.id as string, user.id, user.role);
     sendResponse(res, {
       success: true,
       message: 'Payment details retrieved successfully',

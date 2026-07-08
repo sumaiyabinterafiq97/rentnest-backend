@@ -19,7 +19,7 @@ const createProperty = async (req: Request, res: Response, next: any) => {
 const updateProperty = async (req: Request, res: Response, next: any) => {
   try {
     const landlordId = (req.user as any).id;
-    const propertyId = req.params.id;
+    const propertyId = req.params.id as string;
     const result = await PropertyService.updateProperty(propertyId, landlordId, req.body);
     sendResponse(res, {
       success: true,
@@ -34,7 +34,7 @@ const updateProperty = async (req: Request, res: Response, next: any) => {
 const deleteProperty = async (req: Request, res: Response, next: any) => {
   try {
     const landlordId = (req.user as any).id;
-    const propertyId = req.params.id;
+    const propertyId = req.params.id as string;
     const result = await PropertyService.deleteProperty(propertyId, landlordId);
     sendResponse(res, {
       success: true,
@@ -61,7 +61,7 @@ const getProperties = async (req: Request, res: Response, next: any) => {
 
 const getPropertyById = async (req: Request, res: Response, next: any) => {
   try {
-    const result = await PropertyService.getPropertyById(req.params.id);
+    const result = await PropertyService.getPropertyById(req.params.id as string);
     sendResponse(res, {
       success: true,
       message: 'Property retrieved successfully',

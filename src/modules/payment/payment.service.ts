@@ -4,7 +4,7 @@ import config from '../../config';
 
 const prisma = new PrismaClient();
 const stripe = new Stripe(config.stripe_secret_key as string, {
-  apiVersion: '2025-01-27.acacia',
+  apiVersion: '2026-06-24.dahlia',
 });
 
 const createPaymentIntent = async (tenantId: string, payload: { rentalRequestId: string }) => {
