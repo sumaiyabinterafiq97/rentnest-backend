@@ -15,7 +15,7 @@
             "header": [{"key": "Content-Type", "value": "application/json"}],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"TENANT\"\n}"
+              "raw": "{\n  \"name\": \"Test Tenant\",\n  \"email\": \"tenant@test.com\",\n  \"password\": \"password123\",\n  \"role\": \"TENANT\"\n}"
             },
             "url": {"raw": "{{base_url}}/api/auth/register", "host": ["{{base_url}}"], "path": ["api", "auth", "register"]}
           }
@@ -27,9 +27,233 @@
             "header": [{"key": "Content-Type", "value": "application/json"}],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+              "raw": "{\n  \"email\": \"tenant@test.com\",\n  \"password\": \"password123\"\n}"
             },
             "url": {"raw": "{{base_url}}/api/auth/login", "host": ["{{base_url}}"], "path": ["api", "auth", "login"]}
+          }
+        },
+        {
+          "name": "Get Me",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "{{token}}"}],
+            "url": {"raw": "{{base_url}}/api/auth/me", "host": ["{{base_url}}"], "path": ["api", "auth", "me"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Properties",
+      "item": [
+        {
+          "name": "Get All Properties",
+          "request": {
+            "method": "GET",
+            "url": {"raw": "{{base_url}}/api/properties", "host": ["{{base_url}}"], "path": ["api", "properties"]}
+          }
+        },
+        {
+          "name": "Get Property By Id",
+          "request": {
+            "method": "GET",
+            "url": {"raw": "{{base_url}}/api/properties/ID_HERE", "host": ["{{base_url}}"], "path": ["api", "properties", "ID_HERE"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Get Categories",
+          "request": {
+            "method": "GET",
+            "url": {"raw": "{{base_url}}/api/categories", "host": ["{{base_url}}"], "path": ["api", "categories"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rentals (Tenant)",
+      "item": [
+        {
+          "name": "Submit Rental Request",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "{{token}}"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyId\": \"ID_HERE\"\n}"
+            },
+            "url": {"raw": "{{base_url}}/api/rentals", "host": ["{{base_url}}"], "path": ["api", "rentals"]}
+          }
+        },
+        {
+          "name": "Get My Rentals",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "{{token}}"}],
+            "url": {"raw": "{{base_url}}/api/rentals", "host": ["{{base_url}}"], "path": ["api", "rentals"]}
+          }
+        },
+        {
+          "name": "Get Rental By Id",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "{{token}}"}],
+            "url": {"raw": "{{base_url}}/api/rentals/ID_HERE", "host": ["{{base_url}}"], "path": ["api", "rentals", "ID_HERE"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Landlord Operations",
+      "item": [
+        {
+          "name": "Create Property",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "{{token}}"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Beautiful Apartment\",\n  \"description\": \"Spacious 2 bedroom apartment\",\n  \"price\": 1200,\n  \"location\": \"New York\",\n  \"categoryId\": \"ID_HERE\"\n}"
+            },
+            "url": {"raw": "{{base_url}}/api/landlord/properties", "host": ["{{base_url}}"], "path": ["api", "landlord", "properties"]}
+          }
+        },
+        {
+          "name": "Update Property",
+          "request": {
+            "method": "PUT",
+            "header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "{{token}}"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 1300\n}"
+            },
+            "url": {"raw": "{{base_url}}/api/landlord/properties/ID_HERE", "host": ["{{base_url}}"], "path": ["api", "landlord", "properties", "ID_HERE"]}
+          }
+        },
+        {
+          "name": "Delete Property",
+          "request": {
+            "method": "DELETE",
+            "header": [{"key": "Authorization", "value": "{{token}}"}],
+            "url": {"raw": "{{base_url}}/api/landlord/properties/ID_HERE", "host": ["{{base_url}}"], "path": ["api", "landlord", "properties", "ID_HERE"]}
+          }
+        },
+        {
+          "name": "Get Rental Requests",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "{{token}}"}],
+            "url": {"raw": "{{base_url}}/api/landlord/requests", "host": ["{{base_url}}"], "path": ["api", "landlord", "requests"]}
+          }
+        },
+        {
+          "name": "Update Request Status",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "{{token}}"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"APPROVED\"\n}"
+            },
+            "url": {"raw": "{{base_url}}/api/landlord/requests/ID_HERE", "host": ["{{base_url}}"], "path": ["api", "landlord", "requests", "ID_HERE"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Operations",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "{{token}}"}],
+            "url": {"raw": "{{base_url}}/api/admin/users", "host": ["{{base_url}}"], "path": ["api", "admin", "users"]}
+          }
+        },
+        {
+          "name": "Update User Status",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "{{token}}"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"BANNED\"\n}"
+            },
+            "url": {"raw": "{{base_url}}/api/admin/users/ID_HERE", "host": ["{{base_url}}"], "path": ["api", "admin", "users", "ID_HERE"]}
+          }
+        },
+        {
+          "name": "Get All Properties",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "{{token}}"}],
+            "url": {"raw": "{{base_url}}/api/admin/properties", "host": ["{{base_url}}"], "path": ["api", "admin", "properties"]}
+          }
+        },
+        {
+          "name": "Get All Rentals",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "{{token}}"}],
+            "url": {"raw": "{{base_url}}/api/admin/rentals", "host": ["{{base_url}}"], "path": ["api", "admin", "rentals"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Create Payment Intent",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "{{token}}"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rentalRequestId\": \"ID_HERE\"\n}"
+            },
+            "url": {"raw": "{{base_url}}/api/payments/create", "host": ["{{base_url}}"], "path": ["api", "payments", "create"]}
+          }
+        },
+        {
+          "name": "Confirm Payment",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "{{token}}"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transactionId\": \"pi_XXX\",\n  \"rentalRequestId\": \"ID_HERE\",\n  \"method\": \"Stripe\"\n}"
+            },
+            "url": {"raw": "{{base_url}}/api/payments/confirm", "host": ["{{base_url}}"], "path": ["api", "payments", "confirm"]}
+          }
+        },
+        {
+          "name": "Get Payment History",
+          "request": {
+            "method": "GET",
+            "header": [{"key": "Authorization", "value": "{{token}}"}],
+            "url": {"raw": "{{base_url}}/api/payments", "host": ["{{base_url}}"], "path": ["api", "payments"]}
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reviews",
+      "item": [
+        {
+          "name": "Create Review",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "{{token}}"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"propertyId\": \"ID_HERE\",\n  \"rating\": 5,\n  \"comment\": \"Great place!\"\n}"
+            },
+            "url": {"raw": "{{base_url}}/api/reviews", "host": ["{{base_url}}"], "path": ["api", "reviews"]}
           }
         }
       ]
@@ -39,6 +263,11 @@
     {
       "key": "base_url",
       "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "YOUR_JWT_TOKEN",
       "type": "string"
     }
   ]
