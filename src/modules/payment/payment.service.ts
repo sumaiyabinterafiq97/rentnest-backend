@@ -1,10 +1,17 @@
 import Stripe from 'stripe';
 import config from '../../config';
-
 import prisma from "../../shared/prisma";
-const stripe = new Stripe(config.stripe_secret_key as string, {
-  apiVersion: '2026-06-24.dahlia',
-});
+
+// Lazy initialization - only created when first used, not at module load time
+let _stripe: Stripe | null = null;
+const getStripe = () => {
+  if (!_stripe) {
+    const key = config.stripe_secret_key as string;
+    if (!key) throw new Error('STRIPE_SECRET_KEY is not set in environment variables');
+    _stripe = new Stripe(key, { apiVersion: '2026-06-24.dahlia' });
+  }
+  return _stripe;
+};
 
 const createPaymentIntent = async (tenantId: string, payload: { rentalRequestId: string }) => {
   const rental = await prisma.rentalRequest.findUnique({
@@ -32,7 +39,7 @@ const createPaymentIntent = async (tenantId: string, payload: { rentalRequestId:
   }
 
   // Create Stripe payment intent
-  const paymentIntent = await stripe.paymentIntents.create({
+  const paymentIntent = await getStripe().paymentIntents.create({
     amount: Math.round(rental.property.price * 100), // Stripe takes amounts in cents
     currency: 'usd',
     metadata: {
@@ -53,7 +60,7 @@ const confirmPayment = async (payload: { transactionId: string, rentalRequestId:
   // Verify with Stripe (simplified for this assignment, normally handled by webhook)
   // Here we just accept the client's word that payment succeeded to update our DB.
   // In a real scenario, we'd verify the PaymentIntent status on Stripe directly or use a webhook.
-  const paymentIntent = await stripe.paymentIntents.retrieve(transactionId);
+  const paymentIntent = await getStripe().paymentIntents.retrieve(transactionId);
   if (paymentIntent.status !== 'succeeded') {
     throw new Error('Payment not successful according to Stripe');
   }
