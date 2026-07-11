@@ -1,5 +1,7 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './config/swagger';
 
 const app: Application = express();
 
@@ -9,11 +11,14 @@ app.use(cors());
 import router from './app/routes';
 import globalErrorHandler from './app/middlewares/globalErrorHandler';
 
+// Swagger API Docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // Application Routes
 app.use('/api', router);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('RentNest API is running');
+  res.send('RentNest API is running. Docs at /api-docs');
 });
 
 // Global Error Handler
