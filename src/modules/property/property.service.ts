@@ -1,5 +1,4 @@
-
-import prisma from "../../shared/prisma";
+import prisma, { Prisma } from "../../shared/prisma";
 
 const createProperty = async (landlordId: string, payload: any) => {
   return await prisma.property.create({
